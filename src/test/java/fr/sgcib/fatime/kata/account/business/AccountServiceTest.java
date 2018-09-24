@@ -6,10 +6,7 @@ import fr.sgcib.fatime.kata.account.domain.Deposit;
 import fr.sgcib.fatime.kata.account.repository.AccountRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +20,6 @@ public class AccountServiceTest {
     @Spy
     @InjectMocks
     AccountService accountService;
-
 
     @Test
     public void should_make_a_deposit_in_a_given_account() {
@@ -44,5 +40,21 @@ public class AccountServiceTest {
 
         verify(accountRepository, times(1)).save(Mockito.any(Account.class));
         assertThat(expectedAccount).isEqualToComparingFieldByField(updatedAccount);
+    }
+
+    @Test
+    public void should_fetch_an_account_by_number() {
+        Account expectedAccount = Account.builder()
+                .solde(3000L)
+                .customer(Customer.builder().build())
+                .number("A123456B")
+                .build();
+        doReturn(expectedAccount).when(accountRepository).findByNumber("A123456B");
+
+        Account account = accountService.fetchAccountByNumber("A123456B").get();
+
+        verify(accountRepository, times(1)).findByNumber("A123456B");
+        verify(accountRepository).findByNumber("A123456B");
+        assertThat(account).isEqualToComparingFieldByField(expectedAccount);
     }
 }

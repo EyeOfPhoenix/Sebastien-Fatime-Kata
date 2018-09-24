@@ -6,6 +6,8 @@ import fr.sgcib.fatime.kata.account.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AccountService {
 
@@ -21,5 +23,9 @@ public class AccountService {
                 .build();
 
         return accountRepository.save(updatedAccount);
+    }
+
+    public Optional<Account> fetchAccountByNumber(String number) {
+        return Optional.of(accountRepository.findByNumber(number));
     }
 }
