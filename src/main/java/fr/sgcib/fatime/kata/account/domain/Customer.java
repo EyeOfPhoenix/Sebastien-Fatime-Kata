@@ -12,4 +12,5 @@ import lombok.Value;
 public class Customer {
     String name;
     String firstname;
+    Account account;
 }
