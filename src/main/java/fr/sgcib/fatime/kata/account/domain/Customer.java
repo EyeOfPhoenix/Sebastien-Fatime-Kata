@@ -2,16 +2,19 @@ package fr.sgcib.fatime.kata.account.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Value
+@Table
+@Data
 @Builder
 @AllArgsConstructor
+@ToString(exclude = {"account"})
 public class Customer {
     @Id
     @GeneratedValue
@@ -20,6 +23,7 @@ public class Customer {
     String name;
     String firstname;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @JoinColumn
     Account account;
 }

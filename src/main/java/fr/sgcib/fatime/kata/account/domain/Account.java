@@ -1,24 +1,23 @@
 package fr.sgcib.fatime.kata.account.domain;
 
 
-import com.sun.istack.internal.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Data
 @Builder
+@ToString
 public class Account {
 
     @Id
-    @GeneratedValue
     private final Long id;
 
     @NotNull
@@ -26,6 +25,7 @@ public class Account {
 
     private final Long solde;
 
-    @OneToOne(fetch = LAZY)
-    private final Customer customer;
+    @OneToOne(cascade = ALL, fetch = LAZY)
+    @MapsId
+    private Customer customer;
 }
