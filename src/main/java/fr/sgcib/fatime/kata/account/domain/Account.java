@@ -9,4 +9,5 @@ import lombok.Value;
 public class Account {
     Long id;
     String number;
+    Long solde;
 }

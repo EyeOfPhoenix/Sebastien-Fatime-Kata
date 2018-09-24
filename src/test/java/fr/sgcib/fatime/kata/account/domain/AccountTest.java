@@ -16,4 +16,9 @@ public class AccountTest {
     public void should_has_an_number() {
         assertThat(Account.builder().number("A123456B").build().getNumber(), instanceOf(String.class));
     }
+
+    @Test
+    public void should_has_a_balance() {
+        assertThat(Account.builder().solde(2000L).build().getSolde(), instanceOf(Long.class));
+    }
 }
