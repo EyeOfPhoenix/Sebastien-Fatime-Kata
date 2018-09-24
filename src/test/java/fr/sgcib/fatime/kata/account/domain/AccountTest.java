@@ -21,4 +21,9 @@ public class AccountTest {
     public void should_has_a_balance() {
         assertThat(Account.builder().solde(2000L).build().getSolde(), instanceOf(Long.class));
     }
+
+    @Test
+    public void should_has_a_customer() {
+        assertThat(Account.builder().customer(Customer.builder().build()).build().getCustomer(), instanceOf(Customer.class));
+    }
 }

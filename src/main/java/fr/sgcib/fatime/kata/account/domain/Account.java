@@ -10,4 +10,5 @@ public class Account {
     Long id;
     String number;
     Long solde;
+    Customer customer;
 }
