@@ -21,4 +21,9 @@ public class CustomerTest {
     public void should_has_an_account() {
         assertThat(Customer.builder().account(Account.builder().build()).build().getAccount(), instanceOf(Account.class));
     }
+
+    @Test
+    public void should_has_an_id() {
+        assertThat(Customer.builder().account(Account.builder().build()).build().getAccount(), instanceOf(Account.class));
+    }
 }

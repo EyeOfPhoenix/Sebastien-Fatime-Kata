@@ -8,6 +8,7 @@ import lombok.Value;
 @Builder
 @AllArgsConstructor
 public class Customer {
+    Long id;
     String name;
     String firstname;
     Account account;
