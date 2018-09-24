@@ -9,6 +9,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class DepositTest {
 
     @Test
+    public void should_has_a_deposit() {
+        Deposit deposit = Deposit.builder().deposit(1000L).build();
+
+        assertThat(deposit.getDeposit()).isInstanceOf(Long.class);
+    }
+
+    @Test
     public void should_validate_a_deposit_is_positif() {
         Deposit deposit = Deposit.builder().deposit(1000L).build();
 
