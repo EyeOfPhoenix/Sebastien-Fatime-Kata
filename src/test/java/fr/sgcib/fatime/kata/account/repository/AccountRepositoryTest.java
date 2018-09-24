@@ -58,4 +58,18 @@ public class AccountRepositoryTest {
         assertThat(account.getCustomer().getFirstname()).isEqualTo(expectedAccount.getCustomer().getFirstname());
         assertThat(account.getCustomer().getName()).isEqualTo(expectedAccount.getCustomer().getName());
     }
+
+    @Test
+    public void should_save_an_account_with_a_number() {
+        Account account = Account.builder()
+                .id(1L)
+                .customer(Customer.builder().id(1L).build())
+                .solde(1000L)
+                .build();
+
+        accountRepository.save(account);
+
+        assertThat(testEntityManager.find(Account.class, account.getId())
+                .getSolde()).isEqualTo(account.getSolde());
+    }
 }
