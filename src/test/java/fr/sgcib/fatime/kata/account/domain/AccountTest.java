@@ -11,4 +11,9 @@ public class AccountTest {
     public void should_has_an_id() {
         assertThat(Account.builder().id(10000L).build().getId(), instanceOf(Long.class));
     }
+
+    @Test
+    public void should_has_an_number() {
+        assertThat(Account.builder().number("A123456B").build().getNumber(), instanceOf(String.class));
+    }
 }

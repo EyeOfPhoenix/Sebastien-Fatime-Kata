@@ -8,4 +8,5 @@ import lombok.Value;
 @Builder
 public class Account {
     Long id;
+    String number;
 }
