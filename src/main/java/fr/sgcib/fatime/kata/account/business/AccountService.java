@@ -12,7 +12,7 @@ import java.util.Optional;
 public class AccountService {
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     public Account depose(Deposit deposit, Account account) {
         Account updatedAccount = Account.builder()
