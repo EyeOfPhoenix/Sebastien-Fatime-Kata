@@ -27,4 +27,9 @@ public class OperationTest {
     public void should_has_an_amount() {
         assertThat(Operation.builder().amount(1000L).build().getAmount()).isInstanceOf(Long.class);
     }
+
+    @Test
+    public void should_has_an_account() {
+        assertThat(Operation.builder().account(Account.builder().build()).build().getAccount()).isInstanceOf(Account.class);
+    }
 }

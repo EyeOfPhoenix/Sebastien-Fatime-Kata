@@ -3,10 +3,10 @@ package fr.sgcib.fatime.kata.account.domain;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Data
@@ -19,4 +19,7 @@ public class Operation {
     private final OperationType operationType;
     private final Date date;
     private final Long amount;
+
+    @ManyToOne(fetch = LAZY)
+    private final Account account;
 }
