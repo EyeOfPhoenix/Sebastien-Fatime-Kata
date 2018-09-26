@@ -3,6 +3,7 @@ package fr.sgcib.fatime.kata.account.business;
 import fr.sgcib.fatime.kata.account.domain.Account;
 import fr.sgcib.fatime.kata.account.domain.Amount;
 import fr.sgcib.fatime.kata.account.domain.Customer;
+import fr.sgcib.fatime.kata.account.exception.InsufficientBalanceException;
 import fr.sgcib.fatime.kata.account.repository.AccountRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -64,6 +66,18 @@ public class AccountServiceTest {
 
         verify(accountRepository, times(1)).save(Mockito.any(Account.class));
         assertThat(updatedAccount).isEqualToComparingFieldByField(expectedAccount);
+    }
+
+    @Test
+    public void should_unauthorized_a_customer_to_make_a_widthdrawal_if_the_balance_is_below_the_amount() {
+        Account account = Account.builder()
+                .solde(1000L)
+                .customer(Customer.builder().build())
+                .build();
+
+        assertThatThrownBy(() -> accountService.withdrawal(Amount.builder().amount(2000L).build(), account))
+                .isInstanceOf(InsufficientBalanceException.class)
+                .hasMessage(String.format("Votre solde actuel est de %d, impossible de continuer votre demande.", account.getSolde()));
     }
 
     @Test

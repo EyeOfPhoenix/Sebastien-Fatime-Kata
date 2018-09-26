@@ -2,6 +2,7 @@ package fr.sgcib.fatime.kata.account.business;
 
 import fr.sgcib.fatime.kata.account.domain.Account;
 import fr.sgcib.fatime.kata.account.domain.Amount;
+import fr.sgcib.fatime.kata.account.exception.InsufficientBalanceException;
 import fr.sgcib.fatime.kata.account.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,11 @@ public class AccountService {
     }
 
     public Account withdrawal(Amount amount, Account account) {
+        if(amount.getAmount() > account.getSolde()) {
+            throw new InsufficientBalanceException(String.format("Votre solde actuel est de %d, impossible de continuer votre demande.", account.getSolde()));
+        }
+
+
         Account updatedAccount = Account.builder()
                 .customer(account.getCustomer())
                 .solde(account.getSolde() - amount.getAmount())
