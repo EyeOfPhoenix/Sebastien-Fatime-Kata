@@ -1,12 +1,15 @@
 package fr.sgcib.fatime.kata.account.business;
 
 import fr.sgcib.fatime.kata.account.domain.Account;
+import fr.sgcib.fatime.kata.account.domain.Amount;
 import fr.sgcib.fatime.kata.account.domain.Customer;
-import fr.sgcib.fatime.kata.account.domain.Deposit;
 import fr.sgcib.fatime.kata.account.repository.AccountRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,7 +39,7 @@ public class AccountServiceTest {
                 .build();
         doReturn(updatedAccount).when(accountRepository).save(updatedAccount);
 
-        Account expectedAccount = accountService.depose(new Deposit(1000L), account);
+        Account expectedAccount = accountService.depose(new Amount(1000L), account);
 
         verify(accountRepository, times(1)).save(Mockito.any(Account.class));
         assertThat(expectedAccount).isEqualToComparingFieldByField(updatedAccount);
@@ -57,7 +60,7 @@ public class AccountServiceTest {
                 .build();
         doReturn(expectedAccount).when(accountRepository).save(expectedAccount);
 
-        Account updatedAccount = accountService.withdrawal(new Deposit(1000L), account);
+        Account updatedAccount = accountService.withdrawal(new Amount(1000L), account);
 
         verify(accountRepository, times(1)).save(Mockito.any(Account.class));
         assertThat(updatedAccount).isEqualToComparingFieldByField(expectedAccount);

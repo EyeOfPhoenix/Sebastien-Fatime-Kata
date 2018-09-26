@@ -1,7 +1,7 @@
 package fr.sgcib.fatime.kata.account.business;
 
 import fr.sgcib.fatime.kata.account.domain.Account;
-import fr.sgcib.fatime.kata.account.domain.Deposit;
+import fr.sgcib.fatime.kata.account.domain.Amount;
 import fr.sgcib.fatime.kata.account.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +14,10 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public Account depose(Deposit deposit, Account account) {
+    public Account depose(Amount amount, Account account) {
         Account updatedAccount = Account.builder()
                 .customer(account.getCustomer())
-                .solde(account.getSolde() + deposit.getDeposit())
+                .solde(account.getSolde() + amount.getAmount())
                 .number(account.getNumber())
                 .id(account.getId())
                 .build();
@@ -25,10 +25,10 @@ public class AccountService {
         return accountRepository.save(updatedAccount);
     }
 
-    public Account withdrawal(Deposit deposit, Account account) {
+    public Account withdrawal(Amount amount, Account account) {
         Account updatedAccount = Account.builder()
                 .customer(account.getCustomer())
-                .solde(account.getSolde() - deposit.getDeposit())
+                .solde(account.getSolde() - amount.getAmount())
                 .number(account.getNumber())
                 .id(account.getId())
                 .build();

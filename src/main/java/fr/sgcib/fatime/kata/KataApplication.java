@@ -2,7 +2,7 @@ package fr.sgcib.fatime.kata;
 
 import fr.sgcib.fatime.kata.account.business.AccountService;
 import fr.sgcib.fatime.kata.account.domain.Account;
-import fr.sgcib.fatime.kata.account.domain.Deposit;
+import fr.sgcib.fatime.kata.account.domain.Amount;
 import fr.sgcib.fatime.kata.account.exception.AccountNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -32,11 +32,11 @@ public class KataApplication implements CommandLineRunner {
 
         if (args.length == 2) {
             String accountNumber = args[0];
-            Deposit deposit = new Deposit(Long.valueOf(args[1]));
+            Amount amount = new Amount(Long.valueOf(args[1]));
             Account account = accountService.fetchAccountByNumber(accountNumber)
                     .orElseThrow(() -> new AccountNotFoundException(String.format("The account %d not found!", accountNumber)));
 
-            accountService.depose(deposit, account);
+            accountService.depose(amount, account);
         }
     }
 }
