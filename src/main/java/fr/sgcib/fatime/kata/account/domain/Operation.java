@@ -14,4 +14,6 @@ public class Operation {
     @Id
     @GeneratedValue
     private final Long id;
+
+    private final OperationType operationType;
 }

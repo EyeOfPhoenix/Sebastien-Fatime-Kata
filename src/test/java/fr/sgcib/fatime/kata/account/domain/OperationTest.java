@@ -10,4 +10,9 @@ public class OperationTest {
     public void should_has_an_id() {
         assertThat(Operation.builder().id(1L).build().getId()).isInstanceOf(Long.class);
     }
+
+    @Test
+    public void should_has_an_operation() {
+        assertThat(Operation.builder().operationType(OperationType.DEPOSIT).build().getOperationType()).isInstanceOf(OperationType.class);
+    }
 }
