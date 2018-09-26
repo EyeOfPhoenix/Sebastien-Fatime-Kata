@@ -38,5 +38,18 @@ public class KataApplication implements CommandLineRunner {
 
             accountService.depose(amount, account);
         }
+
+        //*********//
+        //   US2   //
+        //*********//
+
+        if (args.length == 3 && Long.valueOf(args[2]) == 2) {
+            String accountNumber = args[0];
+            Amount amount = new Amount(Long.valueOf(args[1]));
+            Account account = accountService.fetchAccountByNumber(accountNumber)
+                    .orElseThrow(() -> new AccountNotFoundException(String.format("The account %d not found!", accountNumber)));
+
+            accountService.withdrawal(amount, account);
+        }
     }
 }
