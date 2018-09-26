@@ -2,6 +2,8 @@ package fr.sgcib.fatime.kata.account.domain;
 
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class OperationTest {
@@ -14,5 +16,10 @@ public class OperationTest {
     @Test
     public void should_has_an_operation() {
         assertThat(Operation.builder().operationType(OperationType.DEPOSIT).build().getOperationType()).isInstanceOf(OperationType.class);
+    }
+
+    @Test
+    public void should_has_a_date() {
+        assertThat(Operation.builder().date(new Date()).build().getDate()).isInstanceOf(Date.class);
     }
 }

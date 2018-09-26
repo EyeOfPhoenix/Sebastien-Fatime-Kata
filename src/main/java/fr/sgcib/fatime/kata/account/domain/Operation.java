@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 @Data
@@ -16,4 +17,6 @@ public class Operation {
     private final Long id;
 
     private final OperationType operationType;
+
+    private final Date date;
 }
