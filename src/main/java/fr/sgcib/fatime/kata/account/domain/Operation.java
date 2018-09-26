@@ -17,6 +17,6 @@ public class Operation {
     private final Long id;
 
     private final OperationType operationType;
-
     private final Date date;
+    private final Long amount;
 }
