@@ -43,6 +43,27 @@ public class AccountServiceTest {
     }
 
     @Test
+    public void should_make_a_withdrawal_in_a_given_account() {
+        Customer customer = Customer.builder().build();
+        Account account = Account.builder()
+                .solde(2000L)
+                .customer(customer)
+                .number("A123456B")
+                .build();
+        Account expectedAccount = Account.builder()
+                .solde(1000L)
+                .customer(customer)
+                .number("A123456B")
+                .build();
+        doReturn(expectedAccount).when(accountRepository).save(expectedAccount);
+
+        Account updatedAccount = accountService.withdrawal(new Deposit(1000L), account);
+
+        verify(accountRepository, times(1)).save(Mockito.any(Account.class));
+        assertThat(updatedAccount).isEqualToComparingFieldByField(expectedAccount);
+    }
+
+    @Test
     public void should_fetch_an_account_by_number() {
         Account expectedAccount = Account.builder()
                 .solde(3000L)

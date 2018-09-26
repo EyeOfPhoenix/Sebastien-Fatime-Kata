@@ -25,6 +25,17 @@ public class AccountService {
         return accountRepository.save(updatedAccount);
     }
 
+    public Account withdrawal(Deposit deposit, Account account) {
+        Account updatedAccount = Account.builder()
+                .customer(account.getCustomer())
+                .solde(account.getSolde() - deposit.getDeposit())
+                .number(account.getNumber())
+                .id(account.getId())
+                .build();
+
+        return accountRepository.save(updatedAccount);
+    }
+
     public Optional<Account> fetchAccountByNumber(String number) {
         return Optional.of(accountRepository.findByNumber(number));
     }
