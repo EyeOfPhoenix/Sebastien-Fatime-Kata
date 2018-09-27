@@ -22,6 +22,9 @@ public class AccountServiceTest {
     @Mock
     AccountRepository accountRepository;
 
+    @Mock
+    OperationService operationService;
+
     @Spy
     @InjectMocks
     AccountService accountService;
@@ -94,5 +97,15 @@ public class AccountServiceTest {
         verify(accountRepository, times(1)).findByNumber("A123456B");
         verify(accountRepository).findByNumber("A123456B");
         assertThat(account).isEqualToComparingFieldByField(expectedAccount);
+    }
+
+    @Test
+    public void should_save_a_deposit_operation_in_the_history() {
+        Amount amount = Amount.builder().amount(1000L).build();
+        Account account = Account.builder().solde(3000L).build();
+
+        accountService.depose(amount, account);
+
+        verify(operationService, times(1)).saveDeposit(amount, account);
     }
 }

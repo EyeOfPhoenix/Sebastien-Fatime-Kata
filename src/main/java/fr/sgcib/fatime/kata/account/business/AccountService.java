@@ -15,6 +15,9 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private OperationService operationService;
+
     public Account depose(Amount amount, Account account) {
         Account updatedAccount = Account.builder()
                 .customer(account.getCustomer())
@@ -23,6 +26,7 @@ public class AccountService {
                 .id(account.getId())
                 .build();
 
+        operationService.saveDeposit(amount, account);
         return accountRepository.save(updatedAccount);
     }
 
