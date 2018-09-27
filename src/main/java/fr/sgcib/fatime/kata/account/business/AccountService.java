@@ -43,6 +43,7 @@ public class AccountService {
                 .id(account.getId())
                 .build();
 
+        operationService.saveWithdrawal(amount, account);
         return accountRepository.save(updatedAccount);
     }
 

@@ -108,4 +108,14 @@ public class AccountServiceTest {
 
         verify(operationService, times(1)).saveDeposit(amount, account);
     }
+
+    @Test
+    public void should_save_a_withdrawal_operation_in_the_history() {
+        Amount amount = Amount.builder().amount(1000L).build();
+        Account account = Account.builder().solde(3000L).build();
+
+        accountService.withdrawal(amount, account);
+
+        verify(operationService, times(1)).saveWithdrawal(amount, account);
+    }
 }
