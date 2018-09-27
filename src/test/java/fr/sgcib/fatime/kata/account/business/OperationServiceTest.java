@@ -1,14 +1,11 @@
 package fr.sgcib.fatime.kata.account.business;
 
-import fr.sgcib.fatime.kata.account.domain.Account;
-import fr.sgcib.fatime.kata.account.domain.Operation;
+import fr.sgcib.fatime.kata.account.domain.*;
 import fr.sgcib.fatime.kata.account.repository.OperationRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Date;
@@ -60,5 +57,24 @@ public class OperationServiceTest {
         assertThat(operations)
                 .hasSize(2)
                 .contains(operationsExpected.get(0), operationsExpected.get(1));
+    }
+
+    @Test
+    public void should_save_deposit() {
+        Amount amount = Amount.builder().amount(1000L).build();
+        Account account = Account.builder()
+                .solde(3000L)
+                .number("A123456B")
+                .customer(Customer.builder().build())
+                .build();
+
+        operationService.saveDeposit(amount, account);
+        ArgumentCaptor<Operation> captor = ArgumentCaptor.forClass(Operation.class);
+
+        verify(operationRepository, times(1)).save(Mockito.any(Operation.class));
+        verify(operationRepository).save(captor.capture());
+        assertThat(captor.getValue().getOperationType()).isEqualTo(DEPOSIT);
+        assertThat(captor.getValue().getAmount()).isEqualTo(1000L);
+        assertThat(captor.getValue().getAccount().getNumber()).isEqualTo("A123456B");
     }
 }
