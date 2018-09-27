@@ -8,6 +8,7 @@ import fr.sgcib.fatime.kata.account.repository.OperationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import static fr.sgcib.fatime.kata.account.domain.OperationType.DEPOSIT;
 import static fr.sgcib.fatime.kata.account.domain.OperationType.WITHDRAWAL;
 
 @Service
+@Transactional
 public class OperationService {
     @Autowired
     AccountService accountService;
