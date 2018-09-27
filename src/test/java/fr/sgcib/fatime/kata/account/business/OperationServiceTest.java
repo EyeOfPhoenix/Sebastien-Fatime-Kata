@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static fr.sgcib.fatime.kata.account.domain.OperationType.DEPOSIT;
+import static fr.sgcib.fatime.kata.account.domain.OperationType.WITHDRAWAL;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -74,6 +75,25 @@ public class OperationServiceTest {
         verify(operationRepository, times(1)).save(Mockito.any(Operation.class));
         verify(operationRepository).save(captor.capture());
         assertThat(captor.getValue().getOperationType()).isEqualTo(DEPOSIT);
+        assertThat(captor.getValue().getAmount()).isEqualTo(1000L);
+        assertThat(captor.getValue().getAccount().getNumber()).isEqualTo("A123456B");
+    }
+
+    @Test
+    public void should_save_withdrawal() {
+        Amount amount = Amount.builder().amount(1000L).build();
+        Account account = Account.builder()
+                .solde(3000L)
+                .number("A123456B")
+                .customer(Customer.builder().build())
+                .build();
+
+        operationService.saveWithdrawal(amount, account);
+        ArgumentCaptor<Operation> captor = ArgumentCaptor.forClass(Operation.class);
+
+        verify(operationRepository, times(1)).save(Mockito.any(Operation.class));
+        verify(operationRepository).save(captor.capture());
+        assertThat(captor.getValue().getOperationType()).isEqualTo(WITHDRAWAL);
         assertThat(captor.getValue().getAmount()).isEqualTo(1000L);
         assertThat(captor.getValue().getAccount().getNumber()).isEqualTo("A123456B");
     }

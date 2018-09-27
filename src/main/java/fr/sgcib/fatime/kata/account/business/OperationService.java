@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import static fr.sgcib.fatime.kata.account.domain.OperationType.DEPOSIT;
+import static fr.sgcib.fatime.kata.account.domain.OperationType.WITHDRAWAL;
 
 public class OperationService {
     @Autowired
@@ -33,6 +34,17 @@ public class OperationService {
                 .amount(amount.getAmount())
                 .account(account)
                 .operationType(DEPOSIT)
+                .build();
+
+        operationRepository.save(operation);
+    }
+
+    public void saveWithdrawal(Amount amount, Account account) {
+        Operation operation = Operation.builder()
+                .date(new Date())
+                .amount(amount.getAmount())
+                .account(account)
+                .operationType(WITHDRAWAL)
                 .build();
 
         operationRepository.save(operation);
