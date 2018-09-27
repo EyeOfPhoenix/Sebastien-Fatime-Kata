@@ -22,7 +22,7 @@ public class OperationService {
     @Autowired
     OperationRepository operationRepository;
 
-    List<Operation> fetchOperations(String number) {
+    public List<Operation> fetchOperations(String number) {
         Account account = accountService.fetchAccountByNumber(number)
                 .orElseThrow(() -> new AccountNotFoundException(String.format("The account %d don't exist!", number)));
 

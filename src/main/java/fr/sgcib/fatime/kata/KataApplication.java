@@ -1,6 +1,7 @@
 package fr.sgcib.fatime.kata;
 
 import fr.sgcib.fatime.kata.account.business.AccountService;
+import fr.sgcib.fatime.kata.account.business.OperationService;
 import fr.sgcib.fatime.kata.account.domain.Account;
 import fr.sgcib.fatime.kata.account.domain.Amount;
 import fr.sgcib.fatime.kata.account.exception.AccountNotFoundException;
@@ -19,6 +20,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class KataApplication implements CommandLineRunner {
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private OperationService operationService;
 
     public static void main(String[] args) {
         SpringApplication.run(KataApplication.class, args);
@@ -50,6 +54,16 @@ public class KataApplication implements CommandLineRunner {
                     .orElseThrow(() -> new AccountNotFoundException(String.format("The account %d not found!", accountNumber)));
 
             accountService.withdrawal(amount, account);
+        }
+
+        //*********//
+        //   US3   //
+        //*********//
+
+        if (args.length == 2 && Long.valueOf(args[1]) == 3) {
+            String accountNumber = args[0];
+
+            operationService.fetchOperations(accountNumber);
         }
     }
 }
