@@ -34,7 +34,7 @@ public class KataApplication implements CommandLineRunner {
         //   US1   //
         //*********//
 
-        if (args.length == 2 && Long.valueOf(args[2]) == 1) {
+        if (args.length == 3 && Long.valueOf(args[2]) == 1) {
             String accountNumber = args[0];
             Amount amount = new Amount(Long.valueOf(args[1]));
             Account account = accountService.fetchAccountByNumber(accountNumber)
