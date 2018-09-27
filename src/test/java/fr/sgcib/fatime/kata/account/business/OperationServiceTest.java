@@ -1,8 +1,10 @@
 package fr.sgcib.fatime.kata.account.business;
 
-import fr.sgcib.fatime.kata.account.domain.*;
+import fr.sgcib.fatime.kata.account.domain.Account;
+import fr.sgcib.fatime.kata.account.domain.Amount;
+import fr.sgcib.fatime.kata.account.domain.Customer;
+import fr.sgcib.fatime.kata.account.domain.Operation;
 import fr.sgcib.fatime.kata.account.repository.OperationRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.*;
