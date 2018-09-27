@@ -3,10 +3,10 @@ package fr.sgcib.fatime.kata.account.business;
 import fr.sgcib.fatime.kata.account.domain.Account;
 import fr.sgcib.fatime.kata.account.domain.Amount;
 import fr.sgcib.fatime.kata.account.domain.Operation;
-import fr.sgcib.fatime.kata.account.domain.OperationType;
 import fr.sgcib.fatime.kata.account.exception.AccountNotFoundException;
 import fr.sgcib.fatime.kata.account.repository.OperationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -14,6 +14,7 @@ import java.util.List;
 import static fr.sgcib.fatime.kata.account.domain.OperationType.DEPOSIT;
 import static fr.sgcib.fatime.kata.account.domain.OperationType.WITHDRAWAL;
 
+@Service
 public class OperationService {
     @Autowired
     AccountService accountService;
