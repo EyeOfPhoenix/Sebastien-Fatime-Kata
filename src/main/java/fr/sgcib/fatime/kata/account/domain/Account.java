@@ -23,7 +23,7 @@ public class Account {
     @NotNull
     private final String number;
 
-    private final Long solde;
+    private final Long balance;
 
     @OneToOne(cascade = ALL, fetch = LAZY)
     @MapsId

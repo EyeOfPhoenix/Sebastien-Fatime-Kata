@@ -23,7 +23,7 @@ public class AccountService {
     public Account depose(Amount amount, Account account) {
         Account updatedAccount = Account.builder()
                 .customer(account.getCustomer())
-                .solde(account.getSolde() + amount.getAmount())
+                .balance(account.getBalance() + amount.getAmount())
                 .number(account.getNumber())
                 .id(account.getId())
                 .build();
@@ -33,14 +33,14 @@ public class AccountService {
     }
 
     public Account withdrawal(Amount amount, Account account) {
-        if(amount.getAmount() > account.getSolde()) {
-            throw new InsufficientBalanceException(String.format("Votre solde actuel est de %d, impossible de continuer votre demande.", account.getSolde()));
+        if(amount.getAmount() > account.getBalance()) {
+            throw new InsufficientBalanceException(String.format("Votre solde actuel est de %d, impossible de continuer votre demande.", account.getBalance()));
         }
 
 
         Account updatedAccount = Account.builder()
                 .customer(account.getCustomer())
-                .solde(account.getSolde() - amount.getAmount())
+                .balance(account.getBalance() - amount.getAmount())
                 .number(account.getNumber())
                 .id(account.getId())
                 .build();

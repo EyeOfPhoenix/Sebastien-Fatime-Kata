@@ -12,11 +12,12 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
 
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 public class AccountRepositoryTest {
     @Autowired
     AccountRepository accountRepository;
@@ -31,7 +32,7 @@ public class AccountRepositoryTest {
         expectedAccount = Account.builder()
                 .id(1L)
                 .number("A123456A")
-                .solde(1000L)
+                .balance(1000L)
                 .customer(Customer.builder()
                         .id(1L)
                         .firstname("Sébastien")
@@ -40,7 +41,7 @@ public class AccountRepositoryTest {
                 .build();
 
         Customer customer = Customer.builder().firstname("Sébastien").name("Fatime").build();
-        Account account = Account.builder().number("A123456A").solde(1000L).build();
+        Account account = Account.builder().number("A123456A").balance(1000L).build();
 
         customer.setAccount(account);
         account.setCustomer(customer);
@@ -55,7 +56,7 @@ public class AccountRepositoryTest {
         assertThat(account).isNotNull();
         assertThat(account.getId()).isEqualTo(expectedAccount.getId());
         assertThat(account.getNumber()).isEqualTo(expectedAccount.getNumber());
-        assertThat(account.getSolde()).isEqualTo(expectedAccount.getSolde());
+        assertThat(account.getBalance()).isEqualTo(expectedAccount.getBalance());
         assertThat(account.getCustomer().getId()).isEqualTo(expectedAccount.getCustomer().getId());
         assertThat(account.getCustomer().getFirstname()).isEqualTo(expectedAccount.getCustomer().getFirstname());
         assertThat(account.getCustomer().getName()).isEqualTo(expectedAccount.getCustomer().getName());
@@ -66,12 +67,12 @@ public class AccountRepositoryTest {
         Account account = Account.builder()
                 .id(1L)
                 .customer(Customer.builder().id(1L).build())
-                .solde(1000L)
+                .balance(1000L)
                 .build();
 
         accountRepository.save(account);
 
         assertThat(testEntityManager.find(Account.class, account.getId())
-                .getSolde()).isEqualTo(account.getSolde());
+                .getBalance()).isEqualTo(account.getBalance());
     }
 }

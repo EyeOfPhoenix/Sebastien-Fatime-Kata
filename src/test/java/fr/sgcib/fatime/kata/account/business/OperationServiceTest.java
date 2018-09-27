@@ -36,7 +36,7 @@ public class OperationServiceTest {
     public void should_get_all_operations_from_an_account() {
         Account accountExcepted = Account.builder()
                 .number("A123456B")
-                .solde(1000L)
+                .balance(1000L)
                 .build();
         List<Operation> operationsExpected = asList(Operation.builder()
                 .date(new Date(987654L))
@@ -66,7 +66,7 @@ public class OperationServiceTest {
     public void should_save_deposit() {
         Amount amount = Amount.builder().amount(1000L).build();
         Account account = Account.builder()
-                .solde(3000L)
+                .balance(3000L)
                 .number("A123456B")
                 .customer(Customer.builder().build())
                 .build();
@@ -85,7 +85,7 @@ public class OperationServiceTest {
     public void should_save_withdrawal() {
         Amount amount = Amount.builder().amount(1000L).build();
         Account account = Account.builder()
-                .solde(3000L)
+                .balance(3000L)
                 .number("A123456B")
                 .customer(Customer.builder().build())
                 .build();

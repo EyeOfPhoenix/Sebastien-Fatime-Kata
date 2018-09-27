@@ -18,10 +18,11 @@ import java.util.List;
 import static fr.sgcib.fatime.kata.account.domain.OperationType.DEPOSIT;
 import static fr.sgcib.fatime.kata.account.domain.OperationType.WITHDRAWAL;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 public class OperationRepositoryTest {
     @Autowired
     private OperationRepository operationRepository;
@@ -37,7 +38,7 @@ public class OperationRepositoryTest {
     public void init() {
         account = Account.builder()
                 .customer(Customer.builder().build())
-                .solde(1000L)
+                .balance(1000L)
                 .number("A123456B")
                 .build();
         deposit = Operation.builder()

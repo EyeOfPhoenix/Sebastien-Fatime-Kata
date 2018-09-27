@@ -33,12 +33,12 @@ public class AccountServiceTest {
     public void should_make_a_deposit_in_a_given_account() {
         Customer customer = Customer.builder().build();
         Account account = Account.builder()
-                .solde(1000L)
+                .balance(1000L)
                 .customer(customer)
                 .number("A123456B")
                 .build();
         Account updatedAccount = Account.builder()
-                .solde(2000L)
+                .balance(2000L)
                 .customer(customer)
                 .number("A123456B")
                 .build();
@@ -54,12 +54,12 @@ public class AccountServiceTest {
     public void should_make_a_withdrawal_in_a_given_account() {
         Customer customer = Customer.builder().build();
         Account account = Account.builder()
-                .solde(2000L)
+                .balance(2000L)
                 .customer(customer)
                 .number("A123456B")
                 .build();
         Account expectedAccount = Account.builder()
-                .solde(1000L)
+                .balance(1000L)
                 .customer(customer)
                 .number("A123456B")
                 .build();
@@ -74,19 +74,19 @@ public class AccountServiceTest {
     @Test
     public void should_unauthorized_a_customer_to_make_a_widthdrawal_if_the_balance_is_below_the_amount() {
         Account account = Account.builder()
-                .solde(1000L)
+                .balance(1000L)
                 .customer(Customer.builder().build())
                 .build();
 
         assertThatThrownBy(() -> accountService.withdrawal(Amount.builder().amount(2000L).build(), account))
                 .isInstanceOf(InsufficientBalanceException.class)
-                .hasMessage(String.format("Votre solde actuel est de %d, impossible de continuer votre demande.", account.getSolde()));
+                .hasMessage(String.format("Votre solde actuel est de %d, impossible de continuer votre demande.", account.getBalance()));
     }
 
     @Test
     public void should_fetch_an_account_by_number() {
         Account expectedAccount = Account.builder()
-                .solde(3000L)
+                .balance(3000L)
                 .customer(Customer.builder().build())
                 .number("A123456B")
                 .build();
@@ -102,7 +102,7 @@ public class AccountServiceTest {
     @Test
     public void should_save_a_deposit_operation_in_the_history() {
         Amount amount = Amount.builder().amount(1000L).build();
-        Account account = Account.builder().solde(3000L).build();
+        Account account = Account.builder().balance(3000L).build();
 
         accountService.depose(amount, account);
 
@@ -112,7 +112,7 @@ public class AccountServiceTest {
     @Test
     public void should_save_a_withdrawal_operation_in_the_history() {
         Amount amount = Amount.builder().amount(1000L).build();
-        Account account = Account.builder().solde(3000L).build();
+        Account account = Account.builder().balance(3000L).build();
 
         accountService.withdrawal(amount, account);
 

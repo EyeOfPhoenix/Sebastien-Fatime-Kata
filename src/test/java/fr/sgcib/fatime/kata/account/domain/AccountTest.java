@@ -19,7 +19,7 @@ public class AccountTest {
 
     @Test
     public void should_has_a_balance() {
-        assertThat(Account.builder().solde(2000L).build().getSolde(), instanceOf(Long.class));
+        assertThat(Account.builder().balance(2000L).build().getBalance(), instanceOf(Long.class));
     }
 
     @Test
